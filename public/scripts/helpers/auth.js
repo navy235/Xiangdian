@@ -1,11 +1,11 @@
 /**
  * Created by hshen on 5/25/2015.
  */
-var request = request('superagent');
+var request = require('superagent');
 var Cookie = require('../tools/cookie');
 var LOGINCOOKIE = 'login';
 var Auth = {
-    login(username, password, cb) {
+    login: function (username, password, cb) {
         cb = arguments[arguments.length - 1];
         if (this.loggedIn()) {
             if (cb) cb(true);
@@ -19,14 +19,8 @@ var Auth = {
             })
             .end(function (err, response) {
                 var result = response.body;
-                if (result.authenticated) {
-                    Cookie.setCookie(LOGINCOOKIE, result.token)
-                    if (cb) cb(true);
-                    this.onChange(true);
-                } else {
-                    if (cb) cb(false);
-                    this.onChange(false);
-                }
+                if (cb) cb(result.success);
+                this.onChange(result.success);
             })
     },
 

@@ -12,12 +12,14 @@ var {
 var {
     App,
     Home,
+    Login,
     NotFound
     }=require('./components');
 // declare our routes and their hierarchy
 var routes = (
     <Route path="/" handler={App}>
         <DefaultRoute name="home" handler={Home}/>
+        <Route name="login" handler={Login}/>
         <NotFoundRoute handler={NotFound} />
     </Route>
 );
