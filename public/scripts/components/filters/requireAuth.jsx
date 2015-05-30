@@ -9,7 +9,7 @@ var requireAuth = (Component) => {
         statics: {
             willTransitionTo: function (transition, params, query, callback) {
                 if (!Auth.loggedIn()) {
-                    transition.redirect('/login', {}, {'nextPath': transition.path});
+                    transition.redirect('/login', {},{'nextPath' : transition.path});
                 }
             }
         },

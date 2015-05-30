@@ -4,20 +4,29 @@
 var React = require('react');
 var Router = require('react-router');
 var { Route, RouteHandler, Link } = Router;
-var Auth = require('../helpers/auth');
-var requireAuth = require('./filters/requireAuth');
-
-var Home = requireAuth(React.createClass({
+var {
+    Toolbar,
+    ToolbarGroup,
+    FlatButton,
+    AppBar
+    }=require('material-ui');
+var TabBar = require('./controls/TabBar');
+var TabBarItem = require('./controls/TabBarItem');
+var Home = React.createClass({
     render() {
-        var token = Auth.getUserInfo();
+        //var token = Auth.getUserInfo();
         return (
-            <div>
-                <h1>Dashboard</h1>
-                <p>You made it!</p>
-                <p>{token}</p>
-            </div>
+
+            <TabBar hasAppBar={true}>
+                <TabBarItem label="Item One" icon="home" >
+                    <div>TabBar1</div>
+                </TabBarItem>
+                <TabBarItem label="Item Two" >
+                    <div>TabBar2</div>
+                </TabBarItem>
+            </TabBar>
         );
     }
-}));
+})
 
 module.exports = Home;

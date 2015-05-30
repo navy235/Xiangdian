@@ -19,11 +19,11 @@ var Login = React.createClass({
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
-                    <label for="username">UserName</label>
+                    <label htmlFor="username">UserName</label>
                     <input ref="username" type="text" className="form-control" id="username" placeholder="Enter UserName"/>
                 </div>
                 <div className="form-group">
-                    <label for="password">Password</label>
+                    <label htmlFor="password">Password</label>
                     <input ref="password" type="password" className="form-control" id="password" placeholder="Enter Password"/>
                 </div>
 

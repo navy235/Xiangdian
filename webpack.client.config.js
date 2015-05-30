@@ -26,16 +26,23 @@ var config = {
     },
     module: {
         loaders: [
+
             {
                 test: /\.jsx/,
-                loader: 'jsx-loader?harmony' },
+                loader: 'jsx-loader?harmony'
+            },
 
         ],
     },
     resolve: {
         // Allow require('./blah') to require blah.jsx
-        extensions: ['', '.js','.jsx']
+        extensions: ['', '.js', '.jsx'],
+        alias: {
+            "react": __dirname + '/node_modules/react',
+            "react/addons": __dirname + '/node_modules/react/addons',
+        }
     },
+    externals: {},
     //externals: {
     //    // Use external version of React (from CDN for client-side, or bundled with ReactJS.NET for server-side)
     //    backbone: 'Backbone',

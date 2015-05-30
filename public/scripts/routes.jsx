@@ -18,8 +18,9 @@ var {
 // declare our routes and their hierarchy
 var routes = (
     <Route path="/" handler={App}>
-        <DefaultRoute name="home" handler={Home}/>
-        <Route name="login" handler={Login}/>
+        <DefaultRoute name="home"  handler={Home}/>
+        <Route name="profile" path="/profile" handler={Login}/>
+        <Route name="login" path="/login" handler={Login}/>
         <NotFoundRoute handler={NotFound} />
     </Route>
 );

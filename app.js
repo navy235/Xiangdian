@@ -5,15 +5,18 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 require('node-jsx').install({harmony: true, extension: '.jsx'});
-var React = require('react');
-var Router = require('react-router');
 var app = express();
 var ApiRoutes = require('./routes');
 
-var routes = require("./public/scripts/routes.jsx");
-
-require('./webpack.client.config');
-
+var mongoose = require('mongoose');
+mongoose.createConnection('mongodb://localhost/xd', function(err) {
+    if(err) {
+        console.log('connection error', err);
+    } else {
+        console.log('connection successful');
+    }
+});
+var webpackconfig = require('./webpack.client.config');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -29,13 +32,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/user', ApiRoutes.userApi);
 
-app.get('*', function (req, res) {
+app.get('/', function (req, res) {
+    res.render('index', {content: ''});
     // pass in `req.url` and the router will immediately match
-    Router.run(routes, req.path, function (routeHandler) {
-        var routeComponent = React.createFactory(routeHandler)
-        var content = React.renderToString(routeComponent());
-        res.render('index', {content: content});
-    });
+    //Router.run(routes, req.path, function (routeHandler) {
+    //    var routeComponent = React.createFactory(routeHandler)
+    //    var content = React.renderToString(routeComponent());
+    //    res.render('index', {content: content});
+    //});
 });
 
 
