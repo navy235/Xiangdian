@@ -16,15 +16,17 @@ var Home = React.createClass({
     render() {
         //var token = Auth.getUserInfo();
         return (
-
-            <TabBar hasAppBar={true}>
-                <TabBarItem label="Item One" icon="home" >
-                    <div>TabBar1</div>
-                </TabBarItem>
-                <TabBarItem label="Item Two" >
-                    <div>TabBar2</div>
-                </TabBarItem>
-            </TabBar>
+            <div id="home">
+                <AppBar title='Title' showMenuIconButton={false} />
+                <TabBar hasAppBar={true}>
+                    <TabBarItem label="Item One" icon="home" >
+                        <Link to="list">list view</Link>
+                    </TabBarItem>
+                    <TabBarItem label="Item Two" icon="back">
+                        <div>TabBar2</div>
+                    </TabBarItem>
+                </TabBar>
+            </div>
         );
     }
 })

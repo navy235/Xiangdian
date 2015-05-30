@@ -6,7 +6,7 @@ var mui = require('material-ui');
 var SvgIcon = mui.SvgIcon;
 var StylePropable = mui.Mixins.StylePropable;
 
-var iConHome = React.createClass({
+var iConBack = React.createClass({
 
     mixins: [StylePropable],
 
@@ -14,7 +14,7 @@ var iConHome = React.createClass({
         return (
             <SvgIcon  style={this.mergeAndPrefix(this.getStyles(), this.props.style)} {...this.props}>
                 <g transform="scale(0.023438 0.023438)">
-                    <path d="M512 32l-512 512 96 96 96-96v416h256v-192h128v192h256v-416l96 96 96-96-512-512zM512 448c-35.346 0-64-28.654-64-64s28.654-64 64-64c35.346 0 64 28.654 64 64s-28.654 64-64 64z"></path>
+                    <path d="M402.746 877.254l-320-320c-24.994-24.992-24.994-65.516 0-90.51l320-320c24.994-24.992 65.516-24.992 90.51 0 24.994 24.994 24.994 65.516 0 90.51l-210.746 210.746h613.49c35.346 0 64 28.654 64 64s-28.654 64-64 64h-613.49l210.746 210.746c12.496 12.496 18.744 28.876 18.744 45.254s-6.248 32.758-18.744 45.254c-24.994 24.994-65.516 24.994-90.51 0z"></path>
                 </g>
             </SvgIcon>
         );
@@ -27,4 +27,4 @@ var iConHome = React.createClass({
 
 });
 
-module.exports = iConHome;
+module.exports = iConBack;

@@ -1,16 +1,12 @@
 /**
  * Created by hshen on 5/25/2015.
  */
-var App = require('./App')
-var Home = require('./Home')
-var Login = require('./Login')
-var Profile = require('./Profile')
-var NotFound = require('./NotFound')
 
 module.exports = {
-    App: App,
-    Home: Home,
-    Login: Login,
-    Profile: Profile,
-    NotFound: NotFound
+    App: require('./App'),
+    Home: require('./Home'),
+    Login: require('./Login'),
+    List: require('./List'),
+    Profile: require('./Profile'),
+    NotFound: require('./NotFound')
 };
