@@ -6,6 +6,7 @@ module.exports = {
     App: require('./App'),
     Home: require('./Home'),
     Login: require('./Login'),
+    Register: require('./Register'),
     List: require('./List'),
     Profile: require('./Profile'),
     NotFound: require('./NotFound')

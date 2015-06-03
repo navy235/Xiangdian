@@ -14,9 +14,9 @@ var {
 var StylePropable = mui.Mixins.StylePropable;
 var Logo = require('./Logo');
 
-var { IconInfo }= require('./icon');
+var IconInfo = require('./icon').info;
 
-var Login = React.createClass({
+var Register = React.createClass({
 
     mixins: [State, Navigation, StylePropable],
 
@@ -40,9 +40,9 @@ var Login = React.createClass({
             button: {
                 'margin': '10px 0 0 0'
             },
-            err: {
-                color: '#ffbb4d',
-                fontSize: 12,
+            err:{
+                color:'#ffbb4d',
+                fontSize:12,
             }
         }
     },
@@ -65,14 +65,11 @@ var Login = React.createClass({
                         type="password"
                         ref="password"
                     />
-                    <FlatButton type="submit" primary={true} label="login" style={styles.button} />
-
-                    <Link to="profile">profile</Link>
-
+                    <FlatButton type="submit" primary={true} label="Register" style={styles.button} />
                 {this.state.error && (
                     <div className="bg-danger"  style={styles.err}>
                         <IconInfo />
-                        Bad login information</div>
+                        Bad register information</div>
                 )}
                 </form>
             </Paper>
@@ -84,15 +81,15 @@ var Login = React.createClass({
         var nextPath = this.getQuery().nextPath;
         var username = this.refs.username.getValue();
         var password = this.refs.password.getValue();
-        Auth.login(username, password, (loggedIn) => {
-            if (!loggedIn)
+        Auth.register(username, password, (success) => {
+            if (!success)
                 return this.setState({error: true});
             if (nextPath) {
-                self.transitionTo(nextPath);
+                self.replaceWith(nextPath);
             } else {
-                self.transitionTo('/profile');
+                self.replaceWith('/profile');
             }
         });
     }
 })
-module.exports = Login;
+module.exports = Register;

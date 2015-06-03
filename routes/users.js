@@ -17,20 +17,23 @@ router.post('/login', function (req, res, next) {
         username: req.body.username,
         password: Crypto.hashCrypto(req.body.password)
     }, function (err, user) {
+        console.log(user);
         if (user) {
             res.cookie('xduser',
                 user.cookietoken,
                 {
-                    expires: moment().add(1, 'd'),
+                    maxAge: 1000 * 60 * 60,
                     path: '/'
                 })
             res.json({
                 success: true
             })
         }
-        res.json({
-            success: false
-        })
+        else {
+            res.json({
+                success: false
+            })
+        }
     })
 });
 
@@ -42,30 +45,28 @@ router.post('/register', function (req, res, next) {
     Users.create(form, function (err, count) {
         if (err) return next(err);
         authenticate(form, function (autherr, user) {
+            console.log(user);
             if (user) {
-                res.cookie('xduser',
-                    user.cookietoken,
-                    {
-                        expires: moment().add(1, 'd'),
-                        path: '/'
-                    })
+                res.cookie('xduser', user.cookietoken, {
+                    expires: 1000 * 60 * 60,
+                    path: '/'
+                })
                 res.json({
                     success: true
                 })
+            } else {
+                res.json({
+                    success: false
+                })
             }
-            res.json({
-                success: false
-            })
         })
     })
 })
 
 
-function authenticate(user, callback) {
-    Users.findOne({
-        username: req.body.username,
-        password: Crypto.hashCrypto(req.body.password)
-    }, function (err, user) {
+function authenticate(account, callback) {
+    console.log(account);
+    Users.findOne(account, function (err, user) {
         callback(err, user);
     });
 }

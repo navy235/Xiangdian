@@ -6,17 +6,16 @@ var CSSTransitionGroup = React.addons.CSSTransitionGroup;
 var Router = require('react-router');
 var { Route, RouteHandler, Link } = Router;
 var Auth = require('../helpers/auth');
-var ThemeManager = require('material-ui/lib/styles/theme-manager')();
-var Colors = require('material-ui/lib/styles/colors');
+var mui = require('material-ui');
+var Colors = mui.Styles.Colors;
+var ThemeManager = new mui.Styles.ThemeManager();
 var _ = require('underscore');
 var {
     Toolbar,
     ToolbarGroup,
     FlatButton,
     AppBar
-    }=require('material-ui');
-var FlatRouteButton = require('./controls/FlatRouteButton');
-
+    }=mui;
 var App = React.createClass({
 
     contextTypes: {
@@ -24,50 +23,30 @@ var App = React.createClass({
     },
 
     childContextTypes: {
-        muiTheme: React.PropTypes.object
+        muiTheme: React.PropTypes.object,
+        loggedIn: React.PropTypes.bool
     },
 
     getChildContext: function () {
         return {
-            muiTheme: ThemeManager.getCurrentTheme()
+            muiTheme: ThemeManager.getCurrentTheme(),
+            loggedIn: this.props.auth
         };
-    },
-
-    getInitialState() {
-        return {
-            loggedIn: Auth.loggedIn()
-        }
     },
     componentWillMount() {
         ThemeManager.setPalette({
             accent1Color: Colors.deepOrange500
         });
-        Auth.onChange = this.setLoginState;
-    },
-    setLoginState(loggedIn) {
-        this.setState({
-            loggedIn: loggedIn
+        ThemeManager.setComponentThemes({
+            floatingActionButton: {
+                color: Colors.cyan900
+            }
         });
     },
-    routeClick: function (e, button) {
-        console.log(e);
-        console.log(button);
-    },
     render() {
-        var routelist = ['/home', '/list'];
-        var name = this.context.router.getCurrentPath();
-        var currentIndex = _.indexOf(routelist, name);
-        var lastRouteIndex = _.indexOf(routelist, this.lastRoute);
-        var transition = 'swipeleft';
-        if (currentIndex < lastRouteIndex) {
-            transition = 'swiperight';
-        }
-        this.lastRoute = name;
         return (
             <div id="app">
-                <CSSTransitionGroup  component="div" transitionName={transition}>
-                    <RouteHandler key={name} />
-                </CSSTransitionGroup>
+                <RouteHandler  />
             </div>
         )
     }

@@ -4,31 +4,23 @@
 var React = require('react');
 var Router = require('react-router');
 var { Route, RouteHandler, Link } = Router;
+var mui = require('material-ui');
 var {
     AppBar
-    }=require('material-ui');
+    }=mui;
 
-var IconBack = require('./icon').back;
 var List = React.createClass({
     contextTypes: {
         router: React.PropTypes.func
     },
     render() {
-        //var token = Auth.getUserInfo();
-        var iconElementLeft = <IconBack/>;
         return (
             <div id="list">
-                <AppBar
-                    title='List View'
-                    //iconElementLeft={iconElementLeft}
-                    onLeftIconButtonTouchTap={this.onLeftIconButtonTouchTap}
-                />
+                List View
             </div>
         );
-    },
-    onLeftIconButtonTouchTap: function (e) {
-        this.context.router.transitionTo('home');
     }
+
 })
 
 module.exports = List;

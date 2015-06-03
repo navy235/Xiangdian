@@ -4,10 +4,20 @@
 var React = require('react');
 var Router = require('react-router');
 var routes = require('./routes');
+var Auth = require('./helpers/auth');
 var injectTapEventPlugin = require('react-tap-event-plugin');
-
 injectTapEventPlugin();
-Router.run(routes, Router.HashLocation, (Root) => {
-    React.render(<Root/>, document.body);
+var context = {
+    auth: function () {
+        return Auth.loggedIn();
+    }
+};
+var router = Router.create({
+    routes: routes,
+    location: Router.HistoryLocation,
+    transitionContext: context
+})
+router.run((Root) => {
+    React.render(<Root auth={Auth.loggedIn()}/>, document.body);
 });
 module.exports = routes;

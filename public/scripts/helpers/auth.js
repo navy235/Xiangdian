@@ -3,16 +3,34 @@
  */
 var request = require('superagent');
 var Cookie = require('../tools/cookie');
-var LOGINCOOKIE = 'login';
+var LOGINCOOKIE = 'xduser';
 var Auth = {
     login: function (username, password, cb) {
-        cb = arguments[arguments.length - 1];
+        var self = this;
         if (this.loggedIn()) {
             if (cb) cb(true);
-            this.onChange(true);
-            return;
+            if (self.onChange) {
+                self.onChange(true);
+            }
+        } else {
+            request.post('api/user/login')
+                .send({
+                    username: username,
+                    password: password
+                })
+                .end(function (err, response) {
+                    var result = response.body;
+                    if (cb) cb(result.success);
+                    if (self.onChange) {
+                        self.onChange(result.success);
+                    }
+                })
         }
-        request.post('api/user/login')
+    },
+
+    register: function (username, password, cb) {
+        var self = this;
+        request.post('api/user/register')
             .send({
                 username: username,
                 password: password
@@ -20,7 +38,9 @@ var Auth = {
             .end(function (err, response) {
                 var result = response.body;
                 if (cb) cb(result.success);
-                this.onChange(result.success);
+                if (self.onChange) {
+                    self.onChange(result.success);
+                }
             })
     },
 
@@ -38,7 +58,7 @@ var Auth = {
         return !!Cookie.getCookie(LOGINCOOKIE)
     },
 
-    onChange: function () {
+    onChange: function (result) {
     }
 };
 
