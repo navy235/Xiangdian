@@ -2,18 +2,17 @@
  * Created by hshen on 5/28/2015.
  */
 var React = require('react');
+var mui = require('material-ui');
+var RaisedButton=mui.RaisedButton;
+var LinkMixin = require('../mixins/LinkMixin');
 
-var {FlatButton }=require('material-ui');
-var LinkMixin = require('./LinkMixin');
-
-var FlatRouteButton = React.createClass({
+var RouteButton = React.createClass({
     mixins: [
         LinkMixin
     ],
     contextTypes: {
         router: React.PropTypes.func.isRequired
     },
-
     render: function () {
         var {
             label,
@@ -27,9 +26,8 @@ var FlatRouteButton = React.createClass({
         if (this.props.active === undefined) {
             active = this.context.router.isActive(to, params, query);
         }
-
         return (
-            <FlatButton
+            <RaisedButton
                 href={this.getHref()}
                 label={label}
                 active={active}
@@ -39,9 +37,9 @@ var FlatRouteButton = React.createClass({
                 {...this.props}
             >
           {this.props.children}
-            </FlatButton>
+            </RaisedButton>
         );
     }
 });
 
-module.exports = FlatRouteButton;
+module.exports = RouteButton;

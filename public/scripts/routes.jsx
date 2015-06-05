@@ -16,8 +16,10 @@ var {
     Login,
     Register,
     Profile,
+    Dashboard,
     List,
-    NotFound
+    NotFound,
+    AdminBlogList
     }=require('./components');
 // declare our routes and their hierarchy
 var routes = (
@@ -25,7 +27,10 @@ var routes = (
         <Route name="home" path="/" handler={Home}>
             <Route name="list" path="list" handler={List}/>
         </Route>
-        <Route name="profile" path="/profile" handler={Profile}/>
+        <Route name="dashboard" path="/dashboard" handler={Dashboard}>
+            <DefaultRoute handler={AdminBlogList} />
+            <Route name="profile" path="/profile" handler={Profile}/>
+        </Route>
         <Route name="login" path="/login" handler={Login}/>
         <Route name="register" path="/register" handler={Register}/>
         <NotFoundRoute handler={NotFound} />

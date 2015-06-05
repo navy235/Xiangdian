@@ -9,5 +9,7 @@ module.exports = {
     Register: require('./Register'),
     List: require('./List'),
     Profile: require('./Profile'),
-    NotFound: require('./NotFound')
+    Dashboard: require('./Dashboard'),
+    NotFound: require('./NotFound'),
+    AdminBlogList:require('./admin/BlogList')
 };

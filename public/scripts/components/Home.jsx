@@ -11,10 +11,11 @@ var {
     LeftNav,
     MenuItem,
     }=mui;
-var {StylePropable,StyleResizable}= mui.Mixins;
+var {StylePropable}= mui.Mixins;
+var ResizeMixin = require('./mixins/ResizeMixin');
 var FloatingActionButton = require('./controls/FloatingActionButton')
+var FullWidthSection = require('./controls/FullWidthSection');
 var Logo = require('./Logo');
-
 var {
     IconHome,
     IconGithub,
@@ -22,18 +23,17 @@ var {
     IconMood,
     IconDiary
     }=require('./icon');
-
 var Home = React.createClass({
 
     contextTypes: {
         router: React.PropTypes.func
     },
 
-    mixins: [StylePropable, StyleResizable],
+    mixins: [StylePropable, ResizeMixin],
 
     getStyles() {
         return {
-            leftnav: {
+            left: {
                 background: 'url(../../images/blog.png) center center no-repeat #666666',
                 backgroundSize: 'cover',
                 display: 'table',
@@ -43,9 +43,12 @@ var Home = React.createClass({
                 width: '30%',
                 maxWidth: '700px'
             },
-            leftnavWhenHome: {
+            leftWhenHome: {
                 width: '100%',
                 maxWidth: 'initial'
+            },
+            leftSMALL: {
+                display: 'none'
             },
             logo: {
                 margin: '20px auto',
@@ -85,7 +88,7 @@ var Home = React.createClass({
                 lineHeight: '2em'
             },
             button: {
-                margin: '0 10px 0 0'
+                margin: '0 10px 10px 0'
             },
             nav: {
                 margin: '20px auto'
@@ -113,11 +116,14 @@ var Home = React.createClass({
         var isHome = this.context.router.getCurrentPath() == '/';
         var styles = this.getStyles();
         if (isHome) {
-            styles.leftnav = this.mergeAndPrefix(styles.leftnav, styles.leftnavWhenHome);
+            styles.left = this.mergeAndPrefix(styles.left, styles.leftWhenHome);
+        }
+        if (this.underDeviceSize(ResizeMixin.statics.Sizes.SMALL)) {
+            styles.left = this.mergeAndPrefix(styles.leftSMALL);
         }
         return (
-            <div id="home" >
-                <div style={styles.leftnav}>
+            <FullWidthSection id="home" noPadding={true} >
+                <div style={styles.left}>
                     <div style={styles.header}>
                         <Logo style={styles.logo} />
                         <h1 style={styles.name}>Blog Name</h1>
@@ -131,12 +137,12 @@ var Home = React.createClass({
                             <FloatingActionButton to="list"  style={styles.button} iconStyle={styles.iconStyle} iconClassName="icon-compass2" mini={true}/>
                             <FloatingActionButton to="profile" style={styles.button} iconStyle={styles.iconStyle} iconClassName="icon-calendar" mini={true}/>
                             <FloatingActionButton to="profile"  style={styles.button} iconStyle={styles.iconStyle} iconClassName="icon-heart" mini={true}/>
-                            <FloatingActionButton to="profile"  style={styles.button} iconStyle={styles.iconStyle} iconClassName="icon-github4" mini={true}/>
+                            <FloatingActionButton to="dashboard"  style={styles.button} iconStyle={styles.iconStyle} iconClassName="icon-github4" mini={true}/>
                         </div>
                     </div>
                 </div>
                 <RouteHandler/>
-            </div>
+            </FullWidthSection>
         );
     }
 })

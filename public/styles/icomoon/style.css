@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('fonts/icomoon.eot?q74j4g');
-	src:url('fonts/icomoon.eot?#iefixq74j4g') format('embedded-opentype'),
-		url('fonts/icomoon.ttf?q74j4g') format('truetype'),
-		url('fonts/icomoon.woff?q74j4g') format('woff'),
-		url('fonts/icomoon.svg?q74j4g#icomoon') format('svg');
+	src:url('fonts/icomoon.eot?a595m7');
+	src:url('fonts/icomoon.eot?#iefixa595m7') format('embedded-opentype'),
+		url('fonts/icomoon.ttf?a595m7') format('truetype'),
+		url('fonts/icomoon.woff?a595m7') format('woff'),
+		url('fonts/icomoon.svg?a595m7#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -40,4 +40,28 @@
 }
 .icon-github4:before {
 	content: "\eab4";
+}
+.icon-user:before {
+	content: "\e971";
+}
+.icon-users:before {
+	content: "\e972";
+}
+.icon-user-tie:before {
+	content: "\e976";
+}
+.icon-plus:before {
+	content: "\ea0a";
+}
+.icon-minus:before {
+	content: "\ea0b";
+}
+.icon-cross:before {
+	content: "\ea0f";
+}
+.icon-checkmark:before {
+	content: "\ea10";
+}
+.icon-checkmark2:before {
+	content: "\ea11";
 }

@@ -3,11 +3,11 @@
  */
 var React = require('react');
 var mui = require('material-ui');
-var { FloatingActionButton }= mui;
+var { IconButton  }= mui;
 
 var LinkMixin = require('../mixins/LinkMixin');
 
-var FloatingActionRouteButton = React.createClass({
+var IconRouteButton = React.createClass({
     mixins: [
         LinkMixin
     ],
@@ -34,7 +34,7 @@ var FloatingActionRouteButton = React.createClass({
         }
 
         return (
-            <FloatingActionButton
+            <IconButton
                 href={this.getHref()}
                 label={label}
                 active={active}
@@ -44,9 +44,9 @@ var FloatingActionRouteButton = React.createClass({
                 {...this.props}
             >
           {this.props.children}
-            </FloatingActionButton>
+            </IconButton>
         );
     }
 });
 
-module.exports = FloatingActionRouteButton;
+module.exports = IconRouteButton;

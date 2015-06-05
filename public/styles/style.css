@@ -3,29 +3,27 @@ html {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
 }
 
 body {
     height: 100%;
     -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
-    overflow: hidden;
     margin: 0;
     padding: 0;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font: 1em "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
     color: #00B7FF;
+    text-decoration: none;
 }
 
-#app {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+ul, ol, li {
+    list-style-type: none;
+    list-style: none;
 }
+
+
 
 .font12 {
     font-family: "ff-tisa-web-pro-1", "ff-tisa-web-pro-2", "Lucida Grande", "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
@@ -35,7 +33,6 @@ a {
     color: #CCCCCC;
     -webkit-font-smoothing: antialiased;
 }
-
 
 .swipeleft-enter {
     transition: left .3s ease-in;
@@ -62,7 +59,6 @@ a {
 .swipeleft-leave.swipeleft-leave-active {
     left: -100%;
 }
-
 
 .swiperight-enter {
     transition: left .3s ease-in;

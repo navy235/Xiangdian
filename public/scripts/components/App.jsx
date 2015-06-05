@@ -10,6 +10,9 @@ var mui = require('material-ui');
 var Colors = mui.Styles.Colors;
 var ThemeManager = new mui.Styles.ThemeManager();
 var _ = require('underscore');
+
+var FullWidthSection = require('./controls/FullWidthSection');
+
 var {
     Toolbar,
     ToolbarGroup,
@@ -40,14 +43,22 @@ var App = React.createClass({
         ThemeManager.setComponentThemes({
             floatingActionButton: {
                 color: Colors.cyan900
+            },
+            raisedButton:{
+                secondaryColor: Colors.grey900,
+                secondaryTextColor: Colors.grey600
+            },
+            toolbar:{
+                iconColor: 'rgba(255,255,255,.7)',
             }
+
         });
     },
     render() {
         return (
-            <div id="app">
+            <FullWidthSection id="app" noPadding={true}>
                 <RouteHandler  />
-            </div>
+            </FullWidthSection>
         )
     }
 })

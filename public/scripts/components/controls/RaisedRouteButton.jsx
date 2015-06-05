@@ -3,22 +3,19 @@
  */
 var React = require('react');
 var mui = require('material-ui');
-var { FloatingActionButton }= mui;
+var {
+    RaisedButton
+}=mui;
 
 var LinkMixin = require('../mixins/LinkMixin');
 
-var FloatingActionRouteButton = React.createClass({
+var RaisedRouteButton = React.createClass({
     mixins: [
         LinkMixin
     ],
     contextTypes: {
         router: React.PropTypes.func.isRequired
     },
-
-    propTypes: {
-        to: React.PropTypes.string.isRequired
-    },
-
     render: function () {
         var {
             label,
@@ -34,7 +31,7 @@ var FloatingActionRouteButton = React.createClass({
         }
 
         return (
-            <FloatingActionButton
+            <RaisedButton
                 href={this.getHref()}
                 label={label}
                 active={active}
@@ -44,9 +41,9 @@ var FloatingActionRouteButton = React.createClass({
                 {...this.props}
             >
           {this.props.children}
-            </FloatingActionButton>
+            </RaisedButton>
         );
     }
 });
 
-module.exports = FloatingActionRouteButton;
+module.exports = RaisedRouteButton;
