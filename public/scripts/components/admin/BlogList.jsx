@@ -65,7 +65,7 @@ var BlogList = React.createClass({
                 height: ' 50px',
                 lineHeight: ' 50px',
                 padding: '0px 10px',
-                boxSize: 'border-box',
+                boxSizing: 'border-box',
                 fontSize: '1.3rem',
                 textTransform: 'uppercase',
                 color: '#aaa9a2',
@@ -80,16 +80,15 @@ var BlogList = React.createClass({
             },
             icon: {
                 position: 'absolute',
-                top: '13px',
+                top: '9px',
                 right: '20px',
-                width: '24px',
-                height: '24px',
-                zIndex: '700',
-
+                border: '0',
+                width: '20px',
+                height: '20px'
             },
             iconStyle: {
-                fontSize: '12px',
-                color: 'green'
+                color: 'green',
+                fontSize: '14px'
             }
         }
     },

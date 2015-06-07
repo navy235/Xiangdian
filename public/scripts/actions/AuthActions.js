@@ -5,7 +5,7 @@ var cookieName = 'xduser';
 var AuthActions = {};
 
 AuthActions.LoadSession = function (context, payload, done) {
-    var token = context.cookie.get('token');
+    var token = context.cookie.get(cookieName);
     context.dispatch('LOAD_SESSION', token);
     done();
 };
