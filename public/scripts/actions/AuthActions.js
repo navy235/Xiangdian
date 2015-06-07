@@ -1,30 +1,49 @@
 /**
  * Created by navy on 15/6/7.
  */
-var debug = require('debug')('app:signIn');
-var cookieName='xduser';
-var AuthActions={};
+var cookieName = 'xduser';
+var AuthActions = {};
 
-AuthActions.SignIn = function(context, payload, done) {
+AuthActions.LoadSession = function (context, payload, done) {
+    var token = context.cookie.get('token');
+    context.dispatch('LOAD_SESSION', token);
+    done();
+};
 
-    var username = payload.username;
-    var password = payload.password;
-
+AuthActions.SignIn = function (context, payload, done) {
     context.dispatch('SIGN_IN_START');
-    context.api.signIn(username, password, function(err, auth) {
+    context.service.update('users', payload, {}, function (err, user) {
         if (err) {
-            debug('Failed');
             context.dispatch('SIGN_IN_FAILURE', err);
             done();
             return;
         }
-        debug('Success');
-        context.dispatch('SIGN_IN_SUCCESS', auth.token);
-        context.cookie.set(cookieName, auth.token);
-        // NOTE: possible race condition here
-        // the AuthStore needs to set its state to "authenticated"
-        // before the transition
+        context.dispatch('SIGN_IN_SUCCESS', user.cookietoken);
+        context.cookie.set(cookieName, user.cookietoken);
         context.getRouter().transitionTo('/dashboard');
         done();
     });
 };
+
+AuthActions.Register = function (context, payload, done) {
+    context.dispatch('REGISTER_START');
+    context.service.create('users', payload, {}, function (err, user) {
+        if (err) {
+            context.dispatch('REGISTER_FAILURE', err);
+            done();
+            return;
+        }
+        context.dispatch('REGISTER_SUCCESS', user.cookietoken);
+        context.cookie.set(cookieName, user.cookietoken);
+        context.getRouter().transitionTo('/dashboard');
+        done();
+    });
+};
+
+AuthActions.SignOut = function (context, payload, done) {
+    context.cookie.clear(cookieName);
+    context.dispatch('SIGN_OUT_SUCCESS');
+    done();
+};
+
+module.exports = AuthActions;

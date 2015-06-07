@@ -7,8 +7,6 @@
 var React = require('react');
 var Router = require('react-router');
 var { Route, RouteHandler, Link } = Router;
-var Auth = require('../../helpers/auth');
-var requireAuth = require('../filters/requireAuth');
 var FullWidthSection = require('../controls/FullWidthSection');
 var RouteButton = require('../controls/RouteButton')
 var IconRouteButton = require('../controls/IconRouteButton')
@@ -21,8 +19,11 @@ var {
     RaisedButton,
     FontIcon
     } = mui;
+var AuthMixin = require('../../mixins/AuthMixin');
 
-var BlogList = requireAuth(React.createClass({
+var BlogList = React.createClass({
+
+    mixins: [AuthMixin],
 
     getStyles() {
         return {
@@ -124,6 +125,6 @@ var BlogList = requireAuth(React.createClass({
             </div>
         );
     }
-}));
+});
 
 module.exports = BlogList;

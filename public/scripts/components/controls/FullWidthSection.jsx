@@ -3,7 +3,7 @@ var mui = require('material-ui');
 var ClearFix = mui.ClearFix;
 
 var StylePropable = mui.Mixins.StylePropable;
-var ResizeMixin = require('../mixins/ResizeMixin');
+var ResizeMixin = require('../../mixins/ResizeMixin');
 var DesktopGutter = mui.Styles.Spacing.desktopGutter;
 
 var FullWidthSection = React.createClass({

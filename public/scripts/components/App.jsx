@@ -5,13 +5,13 @@ var React = require('react/addons');
 var CSSTransitionGroup = React.addons.CSSTransitionGroup;
 var Router = require('react-router');
 var { Route, RouteHandler, Link } = Router;
-var Auth = require('../helpers/auth');
 var mui = require('material-ui');
 var Colors = mui.Styles.Colors;
 var ThemeManager = new mui.Styles.ThemeManager();
 var _ = require('underscore');
 
 var FullWidthSection = require('./controls/FullWidthSection');
+var provideContext = require('fluxible/addons/provideContext');
 
 var {
     Toolbar,
@@ -22,7 +22,8 @@ var {
 var App = React.createClass({
 
     contextTypes: {
-        router: React.PropTypes.func
+        router: React.PropTypes.func,
+        executeAction: React.PropTypes.func.isRequired
     },
 
     childContextTypes: {
@@ -49,9 +50,8 @@ var App = React.createClass({
                 secondaryTextColor: Colors.grey600
             },
             toolbar:{
-                iconColor: 'rgba(255,255,255,.7)',
+                iconColor: 'rgba(255,255,255,.7)'
             }
-
         });
     },
     render() {
@@ -63,4 +63,5 @@ var App = React.createClass({
     }
 })
 
+App = provideContext(App);
 module.exports = App;

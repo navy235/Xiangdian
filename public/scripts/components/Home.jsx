@@ -12,7 +12,7 @@ var {
     MenuItem,
     }=mui;
 var {StylePropable}= mui.Mixins;
-var ResizeMixin = require('./mixins/ResizeMixin');
+var ResizeMixin = require('../mixins/ResizeMixin');
 var FloatingActionButton = require('./controls/FloatingActionButton')
 var FullWidthSection = require('./controls/FullWidthSection');
 var Logo = require('./Logo');

@@ -5,7 +5,7 @@ var React = require('react');
 var mui = require('material-ui');
 var { IconButton  }= mui;
 
-var LinkMixin = require('../mixins/LinkMixin');
+var LinkMixin = require('../../mixins/LinkMixin');
 
 var IconRouteButton = React.createClass({
     mixins: [

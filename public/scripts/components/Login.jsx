@@ -110,11 +110,10 @@ var Login = React.createClass({
     },
     handleSubmit(event) {
         event.preventDefault();
-        var self = this;
         var nextPath = this.getQuery().nextPath;
         var username = this.refs.username.getValue();
         var password = this.refs.password.getValue();
-        this.executeAction(signIn, {
+        this.executeAction(AuthActions.SignIn, {
             username: username,
             password: password,
             nextPath: nextPath

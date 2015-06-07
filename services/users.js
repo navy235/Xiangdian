@@ -8,31 +8,29 @@ var Users = require('../models/Users');
 
 var Crypto = require('../tools/crypto')
 
-function authenticate(account, callback) {
-    Users.findOne(account, function (err, user) {
-        callback(err, user);
-    });
-}
 
-
-var UserApi={
-    name:'users',
-    read: function (req, resource, params, config, callback) {
-        authenticate({
+var UserService = {
+    name: 'users',
+    update: function (req, resource, params, body, config, callback) {
+        Users.findOne({
             username: params.username,
             password: Crypto.hashCrypto(params.password)
         }, function (err, user) {
-
-        })
+            callback(err, user);
+        });
     },
     create: function (req, resource, params, body, config, callback) {
-        var newTodo = {
-            label: params.label
+        var form = {
+            username: req.body.username,
+            password: Crypto.hashCrypto(req.body.password)
         };
-        Todo.create(newTodo, function (err, post) {
-            callback(null, post);
+        Users.create(form, function (err, count) {
+            Users.findOne(form, function (err, user) {
+                callback(err, user);
+            });
+
         })
-    },
-
-
+    }
 }
+
+module.exports = UserService;

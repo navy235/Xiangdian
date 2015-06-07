@@ -4,7 +4,7 @@
 var React = require('react');
 var mui = require('material-ui');
 var RaisedButton=mui.RaisedButton;
-var LinkMixin = require('../mixins/LinkMixin');
+var LinkMixin = require('../../mixins/LinkMixin');
 
 var RouteButton = React.createClass({
     mixins: [

@@ -7,13 +7,12 @@
 var React = require('react');
 var Router = require('react-router');
 var { Route, RouteHandler, Link } = Router;
-var Auth = require('../helpers/auth');
-var requireAuth = require('./filters/requireAuth');
 var FullWidthSection = require('./controls/FullWidthSection');
 var RouteButton = require('./controls/RouteButton')
 var mui = require('material-ui');
 var StylePropable = mui.Mixins.StylePropable;
-var ResizeMixin = require('./mixins/ResizeMixin');
+var ResizeMixin = require('../mixins/ResizeMixin');
+var AuthMixin = require('../mixins/AuthMixin');
 var Colors = mui.Styles.Colors;
 var {
     DropDownIcon,
@@ -24,11 +23,11 @@ var {
     ToolbarGroup,
     ToolbarSeparator,
     ToolbarTitle,
-
     } = mui;
 
+var Dashboard =React.createClass({
 
-var Dashboard = requireAuth(React.createClass({
+    mixins: [AuthMixin],
 
     getStyles() {
         return {
@@ -64,7 +63,6 @@ var Dashboard = requireAuth(React.createClass({
         }
     },
     render() {
-        //var token = Auth.getUserInfo();
         var styles = this.getStyles();
         var iconMenuItems = [
             {payload: '1', text: 'Profile'},
@@ -118,6 +116,5 @@ var Dashboard = requireAuth(React.createClass({
             </FullWidthSection>
         );
     }
-}));
-
+});
 module.exports = Dashboard;

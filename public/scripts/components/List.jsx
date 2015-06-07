@@ -11,7 +11,7 @@ var {
 
 var {StylePropable}= mui.Mixins;
 
-var ResizeMixin = require('./mixins/ResizeMixin');
+var ResizeMixin = require('../mixins/ResizeMixin');
 var BlogList = require('./blog/BlogList');
 
 

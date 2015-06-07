@@ -33,7 +33,7 @@ var routes = (
         </Route>
         <Route name="login" path="/login" handler={Login}/>
         <Route name="register" path="/register" handler={Register}/>
-        <NotFoundRoute handler={NotFound} />
+        <NotFoundRoute name='notfound' handler={NotFound} />
     </Route>
 );
 

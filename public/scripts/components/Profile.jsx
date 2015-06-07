@@ -4,10 +4,11 @@
 var React = require('react');
 var Router = require('react-router');
 var { Route, RouteHandler, Link } = Router;
-var Auth = require('../helpers/auth');
-var requireAuth = require('./filters/requireAuth');
+var AuthMixin = require('../mixins/AuthMixin');
+var Profile = React.createClass({
 
-var Profile = requireAuth(React.createClass({
+    mixins: [AuthMixin],
+
     render() {
         //var token = Auth.getUserInfo();
         return (
@@ -17,6 +18,6 @@ var Profile = requireAuth(React.createClass({
             </div>
         );
     }
-}));
+});
 
 module.exports = Profile;

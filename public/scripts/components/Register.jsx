@@ -4,7 +4,6 @@
 var React = require('react');
 var Router = require('react-router');
 var { Route, RouteHandler, Link,State,Navigation } = Router;
-var Auth = require('../helpers/auth');
 var mui = require('material-ui');
 var {
     TextField,
@@ -16,14 +15,33 @@ var Logo = require('./Logo');
 
 var IconInfo = require('./icon').info;
 
+
+var FluxibleMixin = require('fluxible/addons/FluxibleMixin');
+
+var AuthStore = require('../stores/AuthStore');
+
+var AuthActions = require('../actions/AuthActions');
+
 var Register = React.createClass({
 
-    mixins: [State, Navigation, StylePropable],
+    mixins: [State, Navigation, StylePropable, FluxibleMixin],
 
-    getInitialState() {
+    statics: {
+        storeListeners: [AuthStore]
+    },
+    getInitialState: function () {
+        return this.getStateFromStores();
+    },
+
+    getStateFromStores: function () {
         return {
-            error: false
-        }
+            isRegistering: this.getStore(AuthStore).isRegistering(),
+            error: this.getStore(AuthStore).getRegisterError()
+        };
+    },
+
+    onChange: function () {
+        this.setState(this.getStateFromStores());
     },
 
     getStyles() {
@@ -40,14 +58,22 @@ var Register = React.createClass({
             button: {
                 'margin': '10px 0 0 0'
             },
-            err:{
-                color:'#ffbb4d',
-                fontSize:12,
+            err: {
+                color: '#ffbb4d',
+                fontSize: 12,
             }
         }
     },
 
     render() {
+        var disabled;
+        var text = 'Register';
+
+        if (this.state.isRegistering) {
+            disabled = true;
+            text = 'Registering...';
+        }
+
         var styles = this.getStyles();
         return (
             <Paper style={this.mergeAndPrefix(styles.paper, this.props.style)}>
@@ -65,7 +91,7 @@ var Register = React.createClass({
                         type="password"
                         ref="password"
                     />
-                    <FlatButton type="submit" primary={true} label="Register" style={styles.button} />
+                    <FlatButton type="submit" primary={true} disabled={disabled} label={text} style={styles.button} />
                 {this.state.error && (
                     <div className="bg-danger"  style={styles.err}>
                         <IconInfo />
@@ -81,14 +107,10 @@ var Register = React.createClass({
         var nextPath = this.getQuery().nextPath;
         var username = this.refs.username.getValue();
         var password = this.refs.password.getValue();
-        Auth.register(username, password, (success) => {
-            if (!success)
-                return this.setState({error: true});
-            if (nextPath) {
-                self.replaceWith(nextPath);
-            } else {
-                self.replaceWith('/profile');
-            }
+        this.executeAction(AuthActions.Register, {
+            username: username,
+            password: password,
+            nextPath: nextPath
         });
     }
 })

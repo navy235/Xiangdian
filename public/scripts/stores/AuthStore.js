@@ -8,92 +8,124 @@ var AuthStore = createStore({
         'SIGN_IN_START': 'signInStart',
         'SIGN_IN_FAILURE': 'signInFailure',
         'SIGN_IN_SUCCESS': 'signIn',
-        'SIGN_OUT_START': 'signOutStart',
-        'SIGN_OUT_FAILURE': 'signOutFailure',
-        'SIGN_OUT_SUCCESS': 'signOut'
+        //'SIGN_OUT_START': 'signOutStart',
+        //'SIGN_OUT_FAILURE': 'signOutFailure',
+        'SIGN_OUT_SUCCESS': 'signOut',
+        'REGISTER_START': 'registerStart',
+        'REGISTER_FAILURE': 'registerFailure',
+        'REGISTER_SUCCESS': 'register'
     },
 
-    initialize: function() {
+    initialize: function () {
         this.token = null;
         this.signingIn = false;
         this.signingOut = false;
         this.signInError = null;
+        this.registering = false;
+        this.registerError = null;
     },
 
-    loadSession: function(token) {
+    loadSession: function (token) {
         this.token = token;
         this.emitChange();
     },
 
-    signInStart: function() {
+    signInStart: function () {
         this.signingIn = true;
         this.signInError = null;
         this.emitChange();
     },
 
-    signInFailure: function(error) {
+    signInFailure: function (error) {
         this.signingIn = false;
         this.signInError = error;
         this.emitChange();
     },
 
-    signIn: function(token) {
+    signIn: function (token) {
         this.signingIn = false;
         this.signInError = null;
         this.token = token;
         this.emitChange();
     },
 
-    signOutStart: function() {
+    signOutStart: function () {
         this.signingOut = true;
         this.emitChange();
     },
 
-    signOutFailure: function() {
+    signOutFailure: function () {
         this.signingOut = false;
         this.emitChange();
     },
 
-    signOut: function() {
+    signOut: function () {
         this.signingOut = false;
         this.token = null;
         this.emitChange();
     },
 
-    isAuthenticated: function() {
+    registerStart: function () {
+        this.registing = true;
+        this.emitChange();
+    },
+    registerFailure: function (error) {
+        this.registering = false;
+        this.registerError = error;
+        this.emitChange();
+    },
+    register: function (token) {
+        this.registering = false;
+        this.registerError = null;
+        this.token = token;
+        this.emitChange();
+    },
+    isAuthenticated: function () {
         return Boolean(this.token);
     },
 
-    getToken: function() {
+    getToken: function () {
         return this.token;
     },
 
-    isSigningIn: function() {
+    isSigningIn: function () {
         return this.signingIn;
     },
 
-    isSigningOut: function() {
+    isSigningOut: function () {
         return this.signingOut;
     },
 
-    getSignInError: function() {
+    getSignInError: function () {
         return this.signInError;
     },
 
-    dehydrate: function() {
+    isRegistering: function () {
+        return this.registering;
+    },
+
+    getRegisterError: function () {
+        return this.registerError;
+    },
+
+    dehydrate: function () {
         return {
             token: this.token,
             signingIn: this.signingIn,
             signingOut: this.signingOut,
-            signInError: this.signInError
+            signInError: this.signInError,
+            registering: this.registering,
+            registerError: this.registerError
         };
     },
 
-    rehydrate: function(state) {
+    rehydrate: function (state) {
         this.token = state.token;
         this.signingIn = state.signingIn;
         this.signingOut = state.signingOut;
         this.signInError = state.signInError;
+        this.registering = state.registering;
+        this.registerError = state.registerError;
     }
 });
 
