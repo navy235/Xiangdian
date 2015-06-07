@@ -88,7 +88,10 @@ var BlogList = React.createClass({
             },
             iconStyle: {
                 color: 'green',
-                fontSize: '14px'
+                fontSize: '14px',
+                position:'absolute',
+                left:'10px',
+                top:'10px'
             }
         }
     },

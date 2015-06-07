@@ -25,6 +25,7 @@ UserSchema.virtual('cookietoken').get(function () {
 UserSchema.set('toJSON', {
     virtuals: true
 });
+
 var Users = db.model('Users', UserSchema);
 
 module.exports = Users;

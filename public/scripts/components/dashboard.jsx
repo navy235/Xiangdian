@@ -57,8 +57,7 @@ var Dashboard =React.createClass({
 
             },
             userIcon:{
-                fontSize: '12px',
-                color:'rgba(255,255,255,.7)'
+                fontSize: '12px'
             }
         }
     },
@@ -86,7 +85,7 @@ var Dashboard =React.createClass({
                             secondary={true}
                             buttonComponent={RaisedButton}
                             label="New Post"
-                            to="home"
+                            to="newpost"
                             style={styles.button}
                             labelStyle={styles.buttonLabel}
                             iconClassName="icon-home3" >

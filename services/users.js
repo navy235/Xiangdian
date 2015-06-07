@@ -21,8 +21,8 @@ var UserService = {
     },
     create: function (req, resource, params, body, config, callback) {
         var form = {
-            username: req.body.username,
-            password: Crypto.hashCrypto(req.body.password)
+            username: params.username,
+            password: Crypto.hashCrypto(params.password)
         };
         Users.create(form, function (err, count) {
             Users.findOne(form, function (err, user) {

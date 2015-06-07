@@ -11,5 +11,6 @@ module.exports = {
     Profile: require('./Profile'),
     Dashboard: require('./Dashboard'),
     NotFound: require('./NotFound'),
-    AdminBlogList:require('./admin/BlogList')
+    AdminBlogList:require('./admin/BlogList'),
+    NewPost:require('./admin/NewPost')
 };
