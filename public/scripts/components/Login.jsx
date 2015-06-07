@@ -4,26 +4,47 @@
 var React = require('react');
 var Router = require('react-router');
 var { Route, RouteHandler, Link,State,Navigation } = Router;
-var Auth = require('../helpers/auth');
+
 var mui = require('material-ui');
+
 var {
     TextField,
     FlatButton,
     Paper
     }=mui;
 var StylePropable = mui.Mixins.StylePropable;
+
 var Logo = require('./Logo');
 
 var { IconInfo }= require('./icon');
 
+var FluxibleMixin = require('fluxible/addons/FluxibleMixin');
+
+var AuthStore = require('../stores/AuthStore');
+
+var AuthActions = require('../actions/AuthActions');
+
 var Login = React.createClass({
 
-    mixins: [State, Navigation, StylePropable],
+    mixins: [State, Navigation, StylePropable, FluxibleMixin],
 
-    getInitialState() {
+    statics: {
+        storeListeners: [AuthStore]
+    },
+
+    getInitialState: function () {
+        return this.getStateFromStores();
+    },
+
+    getStateFromStores: function () {
         return {
-            error: false
-        }
+            isSigningIn: this.getStore(AuthStore).isSigningIn(),
+            error: this.getStore(AuthStore).getSignInError()
+        };
+    },
+
+    onChange: function () {
+        this.setState(this.getStateFromStores());
     },
 
     getStyles() {
@@ -48,32 +69,41 @@ var Login = React.createClass({
     },
 
     render() {
+
+        var disabled;
+        var text = 'Sign in';
+
+        if (this.state.isSigningIn) {
+            disabled = true;
+            text = 'Signing in...';
+        }
+
         var styles = this.getStyles();
         return (
             <Paper style={this.mergeAndPrefix(styles.paper, this.props.style)}>
                 <form onSubmit={this.handleSubmit}>
-                    <Logo  style={styles.logo} />
+                    <Logo style={styles.logo}/>
                     <TextField
                         floatingLabelText="UserName"
                         hintText="Enter UserName"
                         type="text"
                         ref="username"
-                    />
+                        />
                     <TextField
                         floatingLabelText="Password"
                         hintText="Enter Password"
                         type="password"
                         ref="password"
-                    />
-                    <FlatButton type="submit" primary={true} label="login" style={styles.button} />
+                        />
+                    <FlatButton type="submit" primary={true} disabled={disabled} label={text} style={styles.button}/>
 
                     <Link to="profile">profile</Link>
 
-                {this.state.error && (
-                    <div className="bg-danger"  style={styles.err}>
-                        <IconInfo />
-                        Bad login information</div>
-                )}
+                    {this.state.error && (
+                        <div className="bg-danger" style={styles.err}>
+                            <IconInfo />
+                            Bad login information</div>
+                    )}
                 </form>
             </Paper>
         )
@@ -84,14 +114,10 @@ var Login = React.createClass({
         var nextPath = this.getQuery().nextPath;
         var username = this.refs.username.getValue();
         var password = this.refs.password.getValue();
-        Auth.login(username, password, (loggedIn) => {
-            if (!loggedIn)
-                return this.setState({error: true});
-            if (nextPath) {
-                self.transitionTo(nextPath);
-            } else {
-                self.transitionTo('/profile');
-            }
+        this.executeAction(signIn, {
+            username: username,
+            password: password,
+            nextPath: nextPath
         });
     }
 })

@@ -7,7 +7,7 @@ var {
     RaisedButton
 }=mui;
 
-var LinkMixin = require('../mixins/LinkMixin');
+var LinkMixin = require('../../mixins/LinkMixin');
 
 var RaisedRouteButton = React.createClass({
     mixins: [
