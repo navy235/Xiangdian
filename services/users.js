@@ -19,7 +19,7 @@ var UserService = {
             callback(err, user);
         });
     },
-    create: function (req, resource, params, body, config, callback) {
+    create: function (req, resource, params, config, callback) {
         var form = {
             username: params.username,
             password: Crypto.hashCrypto(params.password)

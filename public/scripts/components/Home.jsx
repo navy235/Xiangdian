@@ -15,6 +15,7 @@ var {StylePropable}= mui.Mixins;
 var ResizeMixin = require('../mixins/ResizeMixin');
 var FloatingActionButton = require('./controls/FloatingActionButton')
 var FullWidthSection = require('./controls/FullWidthSection');
+var FullScreen = require('./controls/FullScreen');
 var Logo = require('./Logo');
 var {
     IconHome,
@@ -122,7 +123,7 @@ var Home = React.createClass({
             styles.left = this.mergeAndPrefix(styles.leftSMALL);
         }
         return (
-            <FullWidthSection id="home" noPadding={true} >
+            <FullScreen id="home" scroll={true} >
                 <div style={styles.left}>
                     <div style={styles.header}>
                         <Logo style={styles.logo} />
@@ -142,7 +143,7 @@ var Home = React.createClass({
                     </div>
                 </div>
                 <RouteHandler/>
-            </FullWidthSection>
+            </FullScreen>
         );
     }
 })

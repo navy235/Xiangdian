@@ -12,7 +12,7 @@ var BlogSchema = new mongoose.Schema({
     title: String,
     metaTitle: String,
     metaDesc: String,
-    desc: String,
+    content:String,
     publish: Boolean,
     url: String,
     imageUrl: String,

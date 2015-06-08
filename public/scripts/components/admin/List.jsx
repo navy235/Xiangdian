@@ -6,9 +6,9 @@
  */
 var React = require('react');
 var Router = require('react-router');
+var Markdown = require('markdown').markdown;
+var _ = require('underscore');
 var { Route, RouteHandler, Link } = Router;
-var FullWidthSection = require('../controls/FullWidthSection');
-var RouteButton = require('../controls/RouteButton')
 var IconRouteButton = require('../controls/IconRouteButton')
 var mui = require('material-ui');
 var StylePropable = mui.Mixins.StylePropable;
@@ -19,11 +19,39 @@ var {
     RaisedButton,
     FontIcon
     } = mui;
+var FullScreen = require('../controls/FullScreen');
 var AuthMixin = require('../../mixins/AuthMixin');
-
+var FluxibleMixin = require('fluxible/addons/FluxibleMixin');
+var BlogActions = require('../../actions/BlogActions');
+var BlogStore = require('../../stores/BlogStore');
 var BlogList = React.createClass({
 
-    mixins: [AuthMixin],
+    contextTypes: {
+        router: React.PropTypes.func.isRequired
+    },
+
+    mixins: [AuthMixin, FluxibleMixin],
+
+    statics: {
+        storeListeners: [BlogStore],
+        fetchData: function (context, params, query, done) {
+            context.executeAction(BlogActions.LoadBlogs, {}, done);
+        }
+    },
+
+    getInitialState: function () {
+        return this.getStateFromStores();
+    },
+
+    getStateFromStores: function () {
+        return {
+            blogs: this.getStore(BlogStore).getBlogs()
+        };
+    },
+
+    onChange: function () {
+        this.setState(this.getStateFromStores());
+    },
 
     getStyles() {
         return {
@@ -89,22 +117,34 @@ var BlogList = React.createClass({
             iconStyle: {
                 color: 'green',
                 fontSize: '14px',
-                position:'absolute',
-                left:'10px',
-                top:'10px'
+                position: 'absolute',
+                left: '10px',
+                top: '10px'
             }
         }
     },
+
+    _onMenuItemClick: function (e, index, item) {
+        this.context.router.transitionTo(item.route, {id: item.id});
+    },
+
     render() {
         //var token = Auth.getUserInfo();
         var styles = this.getStyles();
-        var iconMenuItems = [
-            {payload: '1', text: 'Profile'},
-            {payload: '2', text: 'Logout'}
-        ];
+        var iconMenuItems = _.map(this.state.blogs, function (blog) {
+            return {
+                text: blog.title,
+                route: 'edit',
+                id: blog._id
+            }
+        });
+        var currentBlogContent = '';
+        if (this.state.blogs.length > 0) {
+            currentBlogContent = Markdown.toHTML(this.state.blogs[0].content);
+        }
         return (
             <div style={styles.root}>
-                <div style={styles.content}>
+                <div style={styles.content} dangerouslySetInnerHTML={{__html: currentBlogContent}}>
 
                 </div>
                 <div style={styles.secondaryNav}>
@@ -114,7 +154,7 @@ var BlogList = React.createClass({
                         </div>
                         <IconRouteButton
                             iconClassName='icon-plus'
-                            to='home'
+                            to='create'
                             style={styles.icon}
                             iconStyle={styles.iconStyle} />
                     </div>

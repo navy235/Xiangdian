@@ -1,8 +1,13 @@
+* {
+    box-sizing: border-box;
+}
+
 html {
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
+    font: 62.5%/1.65 "Open Sans", sans-serif;
 }
 
 body {
@@ -11,6 +16,8 @@ body {
     margin: 0;
     padding: 0;
     font: 1em "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-size: 1.4rem;
+    overflow-x: hidden;
 }
 
 a {
@@ -22,8 +29,6 @@ ul, ol, li {
     list-style-type: none;
     list-style: none;
 }
-
-
 
 .font12 {
     font-family: "ff-tisa-web-pro-1", "ff-tisa-web-pro-2", "Lucida Grande", "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
@@ -84,4 +89,24 @@ ul, ol, li {
 
 .swiperight-leave.swiperight-leave-active {
     left: 100%;
+}
+
+code {
+    white-space: pre-wrap;
+    background: #f1f0ea;
+    border-radius: 2px;
+    padding: .2em .4em;
+    vertical-align: top;
+}
+
+pre {
+    margin: 1.6em 0;
+    background: #f1f0ea;
+    width: 100%;
+    padding: 10px;
+    font-family: Consolas,"Liberation Mono",Menlo,Courier,monospace;
+    font-size: .9em;
+    white-space: pre;
+    overflow: auto;
+    border-radius: 3px;
 }

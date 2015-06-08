@@ -45,6 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var fetchrPlugin = fluxibleApp.getPlugin('FetchrPlugin');
 
 fetchrPlugin.registerService(apiService.users);
+fetchrPlugin.registerService(apiService.blog);
 
 app.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
 
@@ -75,6 +76,7 @@ app.use(function (req, res, next) {
             }
             fetchData(context, routerState, function (err) {
                 if (err) {
+                    console.log(err);
                     return res.render('error', {status: 500, stack: err});
                 }
                 var exposed = 'window.__DATA__='+serialize(fluxibleApp.dehydrate(context));

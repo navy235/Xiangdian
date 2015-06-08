@@ -15,5 +15,5 @@ app.plug(require('./plugins/cookie'));
 app.plug(require('./plugins/router')());
 
 app.registerStore(require('./stores/AuthStore'));
-
+app.registerStore(require('./stores/BlogStore'));
 module.exports = app;

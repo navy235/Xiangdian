@@ -20,7 +20,7 @@ var {
     List,
     NotFound,
     AdminBlogList,
-    NewPost
+    Post
     }=require('./components');
 // declare our routes and their hierarchy
 var routes = (
@@ -31,7 +31,8 @@ var routes = (
         <Route name="dashboard" path="/dashboard" handler={Dashboard}>
             <DefaultRoute handler={AdminBlogList} />
             <Route name="profile" path="/profile" handler={Profile}/>
-            <Route name="newpost" path="/newpost" handler={NewPost}/>
+            <Route name="create" path="/create" handler={Post}/>
+            <Route name="edit" path="/edit/:id" handler={Post}/>
         </Route>
         <Route name="login" path="/login" handler={Login}/>
         <Route name="register" path="/register" handler={Register}/>

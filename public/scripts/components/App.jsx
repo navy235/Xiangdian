@@ -9,8 +9,7 @@ var mui = require('material-ui');
 var Colors = mui.Styles.Colors;
 var ThemeManager = new mui.Styles.ThemeManager();
 var _ = require('underscore');
-
-var FullWidthSection = require('./controls/FullWidthSection');
+var FullScreen = require('./controls/FullScreen');
 var provideContext = require('fluxible/addons/provideContext');
 
 var {
@@ -46,6 +45,8 @@ var App = React.createClass({
                 color: Colors.cyan900
             },
             raisedButton:{
+                primaryColor: Colors.blueA700,
+                primaryTextColor: '#fff',
                 secondaryColor: Colors.grey900,
                 secondaryTextColor: Colors.grey600
             },
@@ -56,9 +57,9 @@ var App = React.createClass({
     },
     render() {
         return (
-            <FullWidthSection id="app" noPadding={true}>
+            <FullScreen id="app" scroll={true}>
                 <RouteHandler  />
-            </FullWidthSection>
+            </FullScreen>
         )
     }
 })

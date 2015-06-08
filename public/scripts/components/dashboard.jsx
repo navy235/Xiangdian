@@ -8,6 +8,7 @@ var React = require('react');
 var Router = require('react-router');
 var { Route, RouteHandler, Link } = Router;
 var FullWidthSection = require('./controls/FullWidthSection');
+var FullScreen = require('./controls/FullScreen');
 var RouteButton = require('./controls/RouteButton')
 var mui = require('material-ui');
 var StylePropable = mui.Mixins.StylePropable;
@@ -68,14 +69,14 @@ var Dashboard =React.createClass({
             {payload: '2', text: 'Logout'}
         ];
         return (
-            <FullWidthSection noPadding={true}>
+            <FullScreen scroll={true}>
                 <Toolbar style={styles.toolbar}>
                     <ToolbarGroup key={0} float="left" >
                         <RouteButton
                             secondary={true}
                             buttonComponent={RaisedButton}
                             label="Content"
-                            to="home"
+                            to="dashboard"
                             style={styles.button}
                             labelStyle={styles.buttonLabel}
                             iconClassName="icon-home3" >
@@ -85,7 +86,7 @@ var Dashboard =React.createClass({
                             secondary={true}
                             buttonComponent={RaisedButton}
                             label="New Post"
-                            to="newpost"
+                            to="create"
                             style={styles.button}
                             labelStyle={styles.buttonLabel}
                             iconClassName="icon-home3" >
@@ -102,17 +103,9 @@ var Dashboard =React.createClass({
                             <FontIcon className="icon-home3"  style={styles.flatButtonIcon}/>
                         </RouteButton>
                     </ToolbarGroup>
-                    <ToolbarGroup key={1} float="right">
-                        <DropDownIcon
-                            iconClassName="icon-user"
-                            style={styles.user}
-                            iconStyle={styles.userIcon}
-                            menuItems={iconMenuItems} >
-                        </DropDownIcon>
-                    </ToolbarGroup>
                 </Toolbar>
                 <RouteHandler />
-            </FullWidthSection>
+            </FullScreen>
         );
     }
 });
