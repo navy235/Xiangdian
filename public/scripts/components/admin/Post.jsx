@@ -22,10 +22,24 @@ var AuthMixin = require('../../mixins/AuthMixin');
 var FluxibleMixin = require('fluxible/addons/FluxibleMixin');
 var BlogActions = require('../../actions/BlogActions');
 var BlogStore = require('../../stores/BlogStore');
+var ReactIntl = require('react-intl');
+
+var {
+    IntlMixin,
+    FormattedMessage,
+    FormattedRelative
+    }=ReactIntl;
+
 var NewPost = React.createClass({
 
     contextTypes: {
-        router: React.PropTypes.func.isRequired
+        router: React.PropTypes.func.isRequired,
+        locales: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.array
+        ]),
+        formats: React.PropTypes.object,
+        messages: React.PropTypes.object
     },
 
     mixins: [AuthMixin, FluxibleMixin],

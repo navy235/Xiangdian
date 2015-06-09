@@ -27,12 +27,10 @@ var {
 var LanguageStore = require('../stores/LanguageStore');
 var LanguageActions = require('../actions/LanguageActions');
 var App = React.createClass({
-
     mixins: [IntlMixin, FluxibleMixin],
 
     statics: {
         storeListeners: [LanguageStore],
-
         fetchData: function (context, params, query, done) {
             context.executeAction(LanguageActions.LoadLang, {}, done);
         }
