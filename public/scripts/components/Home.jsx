@@ -24,13 +24,28 @@ var {
     IconMood,
     IconDiary
     }=require('./icon');
+
+var ReactIntl = require('react-intl');
+var {
+    IntlMixin,
+    FormattedMessage,
+    FormattedRelative
+    }=ReactIntl;
+
+
 var Home = React.createClass({
 
     contextTypes: {
-        router: React.PropTypes.func
+        router: React.PropTypes.func,
+        locales: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.array
+        ]),
+        formats: React.PropTypes.object,
+        messages: React.PropTypes.object
     },
 
-    mixins: [StylePropable, ResizeMixin],
+    mixins: [StylePropable, ResizeMixin, IntlMixin],
 
     getStyles() {
         return {
@@ -96,6 +111,18 @@ var Home = React.createClass({
             },
             iconStyle: {
                 fontSize: '16px'
+            },
+            lang: {
+                height: '30px',
+                textAlign: 'center',
+                top: 'initial',
+                lineHeight: '30px',
+                zIndex: 900
+            },
+            lang_link: {
+                color: '#fff',
+                marginRight: '5px',
+                cursor:'pointer'
             }
         }
     },
@@ -113,6 +140,10 @@ var Home = React.createClass({
         this.context.router.transitionTo(item.route);
     },
 
+    changeLang: function (lang) {
+        this.props.changeLang(lang);
+    },
+
     render() {
         var isHome = this.context.router.getCurrentPath() == '/';
         var styles = this.getStyles();
@@ -122,6 +153,7 @@ var Home = React.createClass({
         if (this.underDeviceSize(ResizeMixin.statics.Sizes.SMALL)) {
             styles.left = this.mergeAndPrefix(styles.leftSMALL);
         }
+        var postDate = Date.now() - (1000 * 60 * 60 * 24);
         return (
             <FullScreen id="home" scroll={true} >
                 <div style={styles.left}>
@@ -131,7 +163,11 @@ var Home = React.createClass({
                         <span style={styles.belief}>Belief is Important For Everybody</span>
                         <hr style={styles.divider}/>
                         <p style={styles.info}>
-                            其实跨平台开发最大的问题还是针对不同的平台 UI 和体验的不同。如果忽视掉这个最困难的问题，只是共用逻辑部分的代码的话，问题一下子就简单不少。
+                            <FormattedMessage
+                                message={this.getIntlMessage('photos')}
+                                name={<b>Annie</b>}
+                                numPhotos={1000}
+                                takenDate={postDate} />
                         </p>
                         <div style={styles.nav}>
                             <FloatingActionButton to="home" style={styles.button} iconStyle={styles.iconStyle} iconClassName="icon-home3" mini={true}/>
@@ -141,6 +177,10 @@ var Home = React.createClass({
                             <FloatingActionButton to="dashboard"  style={styles.button} iconStyle={styles.iconStyle} iconClassName="icon-github4" mini={true}/>
                         </div>
                     </div>
+                    <FullScreen style={styles.lang}>
+                        <a style={styles.lang_link} onClick={this.changeLang.bind(this, 'en-US')}>English</a>
+                        <a style={styles.lang_link} onClick={this.changeLang.bind(this, 'zh')}>中文</a>
+                    </FullScreen>
                 </div>
                 <RouteHandler/>
             </FullScreen>

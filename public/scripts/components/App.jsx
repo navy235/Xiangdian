@@ -11,20 +11,36 @@ var ThemeManager = new mui.Styles.ThemeManager();
 var _ = require('underscore');
 var FullScreen = require('./controls/FullScreen');
 var provideContext = require('fluxible/addons/provideContext');
-
+var locales = require('../locales');
+var FluxibleMixin = require('fluxible/addons/FluxibleMixin');
 var {
     Toolbar,
     ToolbarGroup,
     FlatButton,
     AppBar
     }=mui;
+var ReactIntl = require('react-intl');
+var {
+    IntlMixin,
+    FormattedMessage
+    }=ReactIntl;
+var LanguageStore = require('../stores/LanguageStore');
+var LanguageActions = require('../actions/LanguageActions');
 var App = React.createClass({
 
+    mixins: [IntlMixin, FluxibleMixin],
+
+    statics: {
+        storeListeners: [LanguageStore],
+
+        fetchData: function (context, params, query, done) {
+            context.executeAction(LanguageActions.LoadLang, {}, done);
+        }
+    },
     contextTypes: {
         router: React.PropTypes.func,
         executeAction: React.PropTypes.func.isRequired
     },
-
     childContextTypes: {
         muiTheme: React.PropTypes.object,
         loggedIn: React.PropTypes.bool
@@ -32,10 +48,24 @@ var App = React.createClass({
 
     getChildContext: function () {
         return {
-            muiTheme: ThemeManager.getCurrentTheme(),
-            loggedIn: this.props.auth
+            muiTheme: ThemeManager.getCurrentTheme()
         };
     },
+
+    getInitialState: function () {
+        return this.getStateFromStores();
+    },
+
+    getStateFromStores: function () {
+        return {
+            lang: this.getStore(LanguageStore).getLang()
+        };
+    },
+
+    onChange: function () {
+        this.setState(this.getStateFromStores());
+    },
+
     componentWillMount() {
         ThemeManager.setPalette({
             accent1Color: Colors.deepOrange500
@@ -44,21 +74,27 @@ var App = React.createClass({
             floatingActionButton: {
                 color: Colors.cyan900
             },
-            raisedButton:{
+            raisedButton: {
                 primaryColor: Colors.blueA700,
                 primaryTextColor: '#fff',
                 secondaryColor: Colors.grey900,
                 secondaryTextColor: Colors.grey600
             },
-            toolbar:{
+            toolbar: {
                 iconColor: 'rgba(255,255,255,.7)'
             }
         });
     },
+    changeLang: function (lang) {
+        this.executeAction(LanguageActions.ChangeLang, {
+            lang: lang
+        })
+    },
     render() {
+        var lang = locales[this.state.lang];
         return (
             <FullScreen id="app" scroll={true}>
-                <RouteHandler  />
+                <RouteHandler locales={lang.locales} messages={lang.messages} formats={lang.formats} changeLang={this.changeLang}  />
             </FullScreen>
         )
     }
