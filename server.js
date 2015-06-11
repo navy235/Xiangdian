@@ -1,5 +1,4 @@
-require('node-jsx').install({harmony: true, extension: '.jsx'});
-require('./webpack.client.config');
+require('babel/register');
 
 var express = require('express');
 var path = require('path');
@@ -10,6 +9,7 @@ var bodyParser = require('body-parser');
 var csrf = require('csurf');
 var serialize = require('serialize-javascript');
 var app = express();
+var cors = require('cors')
 var React = require('react');
 var Router = require('react-router');
 var routes = require("./public/scripts/routes.jsx");
@@ -38,6 +38,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
+app.use(cors());
 app.use(csrf({cookie: true}));
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -71,9 +72,9 @@ app.use(function (req, res, next) {
             }
         });
         router.run(function (Handler, routerState) {
-            if (routerState.routes[0].name === 'notfound') {
-                return res.render('error', {status: 404});
-            }
+            //if (routerState.routes[0].name === 'notfound') {
+            //    return res.render('error', {status: 404});
+            //}
             fetchData(context, routerState, function (err) {
                 if (err) {
                     console.log(err);

@@ -39,7 +39,7 @@ var BlogService = {
         })
     },
     delete: function (req, resource, params, config, callback) {
-        Todo.findByIdAndRemove(params.id, {}, function (err, post) {
+        Blogs.findByIdAndRemove(params.id, {}, function (err, post) {
             callback(null, {success: true});
         });
     }
