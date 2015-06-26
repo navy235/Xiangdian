@@ -43,7 +43,7 @@ var BlogList = React.createClass({
         messages: React.PropTypes.object
     },
 
-    mixins: [AuthMixin, FluxibleMixin,IntlMixin],
+    mixins: [AuthMixin, FluxibleMixin, IntlMixin],
 
     statics: {
         storeListeners: [BlogStore],
@@ -169,13 +169,13 @@ var BlogList = React.createClass({
                             iconClassName='icon-plus'
                             to='create'
                             style={styles.icon}
-                            iconStyle={styles.iconStyle} />
+                            iconStyle={styles.iconStyle}/>
                     </div>
                     <Menu
                         ref="menuItems"
                         zDepth={0}
                         menuItems={iconMenuItems}
-                        onItemClick={this._onMenuItemClick} />
+                        onItemClick={this._onMenuItemClick}/>
                 </div>
             </div>
         );
