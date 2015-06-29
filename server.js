@@ -59,7 +59,7 @@ app.use(function (req, res, next) {
             _csrf: req.csrfToken() // Make sure all XHR requests have the CSRF token
         }
     });
-    context.getActnContext().executeAction(AuthActions.LoadSession, {}, function () {
+    context.getActionContext().executeAction(AuthActions.LoadSession, {}, function () {
         var router = Router.create({
             routes: routes,
             location: req.path,

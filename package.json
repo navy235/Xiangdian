@@ -24,6 +24,7 @@
     "mongoose": "^4.0.3",
     "morgan": "~1.5.3",
     "node-libs-browser": "^0.5.2",
+    "q": "^1.4.1",
     "react": "^0.13.3",
     "react-intl": "^1.2.0",
     "react-router": "^0.13.3",
