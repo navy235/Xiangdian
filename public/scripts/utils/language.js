@@ -2,6 +2,9 @@
  * Created by hshen on 6/7/2015.
  */
 var env = require('./env');
+var _ = require('underscore');
+
+var supportLan = ['zh', 'en-US']
 
 function Language(options) {
     options = options || {};
@@ -18,14 +21,20 @@ function Language(options) {
 }
 
 Language.prototype.getLang = function () {
+    var lang = '';
     if (env.SERVER) {
-        var lang = this._req.headers['accept-language'];
+        lang = this._req.headers['accept-language'];
         if (lang && lang.indexOf(',') > -1) {
             lang = lang.split(',')[0];
         }
-        return lang;
+
+    } else {
+        lang = navigator.language || navigator.browserlanguage;
     }
-    return navigator.language || navigator.browserlanguage;
+    if (!_.contains(supportLan, lang)) {
+        lang = supportLan[0];
+    }
+    return lang;
 };
 
 

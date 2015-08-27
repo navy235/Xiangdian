@@ -27,7 +27,7 @@
     "q": "^1.4.1",
     "react": "^0.13.3",
     "react-intl": "^1.2.0",
-    "react-router": "^0.13.3",
+    "react-router": "navy235/react-router#9c0de75046e2c9c369a5a369d85e1eab4efaeb7d",
     "react-tap-event-plugin": "^0.1.7",
     "serialize-javascript": "^1.0.0",
     "serve-favicon": "~2.2.1",
